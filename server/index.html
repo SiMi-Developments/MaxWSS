@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #020; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    </style>
+  </head>
+  <body>
+    <div id = "message">show up</div>
+
+    <div id = "button2">show up</div>
+
+    <ul id="message"></ul>
+<!-- BUTTUNZ -->
+  <button id ="n" class = "nb2" value = "22">Click me to display 22.</button>
+<button id ="n2" class = "nb3" value = "23">Click me to display 23.</button>
+
+    <form action="">
+      <input id="m" autocomplete="off" /><button class = "b1">Send</button>
+
+
+
+    </form>
+  </body>
+      <script src="/socket.io/socket.io.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const socket = io();
+
+            socket.on('message', function(msg) {
+              document.querySelector('#message').innerText = msg
+            });
+
+            document.querySelector('.b1').addEventListener('click',
+          function(e) {
+            e.preventDefault();
+            socket.emit('talkback', document.querySelector('#m').value);
+            document.querySelector('#m').vaule = '';
+          });
+
+//BUTTUNZ
+                      document.querySelector('.nb2').addEventListener('click',
+                    function(e) {
+                      e.preventDefault();
+                      socket.emit('talkback', document.querySelector('#n').value);
+                    });
+
+
+                  document.querySelector('.nb3').addEventListener('click',
+                function(e) {
+                  e.preventDefault();
+                  socket.emit('talkback', document.querySelector('#n2').value);
+
+                });
+              });
+//
+
+
+//BUTTUNZ END
+      </script>
+
+</html>
